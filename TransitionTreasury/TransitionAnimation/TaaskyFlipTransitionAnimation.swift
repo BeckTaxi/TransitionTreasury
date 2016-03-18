@@ -57,9 +57,13 @@ public class TaaskyFlipTransitionAnimation: NSObject, TRViewControllerAnimatedTr
         
         containView?.addSubview(fromVC!.view)
         if blurEffect && (transitionStatus == .Present) {
-            let effectView = UIVisualEffectView(frame: fromVC!.view.frame)
-            effectView.effect = UIBlurEffect(style: .Dark)
-            containView?.addSubview(effectView)
+            if #available(iOS 8.0, *) {
+                let effectView = UIVisualEffectView(frame: fromVC!.view.frame)
+                effectView.effect = UIBlurEffect(style: .Dark)
+                containView?.addSubview(effectView)
+            } else {
+                // Fallback on earlier versions
+            }
         }
         containView?.addSubview(toVC!.view)
         
